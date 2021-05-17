@@ -17,3 +17,20 @@ To keep the product selection process as untainted as possible, you have been in
 The marketing team is not only interested in the total number of clicks, but also the percentage of times that an item was clicked when it was shown. So, you’ll also need to keep track of how many times each image is displayed and do the calculations.
 
 You are also responsible for the look and feel of the app, so don’t forget a custom font, color palette, layout with semantic HTML, and so on.
+
+# Lab-12:
+
+The full BusMall problem domain can be found HERE
+
+## Instructions:
+
+Below are your lab requirements in a user story format. Try and think up what the feature tasks would be for each story, once you are done, or you get stuck, review the provided feature tasks to see what the actual tasks are for each story.
+
+As a marketeer, I want to prevent users from seeing the same image in two subsequent iterations, so that they are not biased.
+Update your algorithm to randomly generate three unique product images from the images directory.
+Update your algorithm so that new products are generated, confirm that these products are not duplicates from the immediate previous set.
+As a marketing manager, I would like a visual representation of how many times a product was clicked so that I can visually analyze the results.
+
+Using ChartJS (imported from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (hint: don’t forget about the <canvas> tags)
+Place the bar chart in the section located beneath your three product images
+The bar charts should only appear after all voting data has been collected.
