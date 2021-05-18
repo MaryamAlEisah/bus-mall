@@ -140,62 +140,96 @@ function handleUserClick(event) {
       productsNames.push(allProducts[i].votes);
       productsShown.push(allProducts[i].shown);
     }
-    viewChart();
   }
 
   let Button = document.getElementById("results");
+  let resultDiv = document.getElementById("results2");
 
-  // Button.addEventListener("click", displayResults);
-  // function displayResults() {
-  //     let liElement;
-  //     let ulElement;
-  //     ulElement = document.createElement("ul");
-
-  //     for (let i = 0; i < allProducts.length; i++) {
-  //     liElement = document.createElement("li");
-  //     liElement.appendChild(ulElement);
-  //     liElement.textContent = `${allProducts[i].name} has ${allProducts[i].votes} votes,
-  //                                     and watched at ${allProducts[i].time} `;
-  //     }
-  // }
+  Button.addEventListener("submit", displayResults);
+  function displayResults() {
+    let liElement;
+    let ulElement;
+    ulElement = document.createElement("ul");
+    resultDiv.appendChild(ulElement);
+    for (let i = 0; i < allProducts.length; i++) {
+      liElement = document.createElement("li");
+      liElement.textContent = `${allProducts[i].name} has ${allProducts[i].votes} votes,
+                                        and watched at ${allProducts[i].time} `;
+      console.log(ulElement);
+      ulElement.appendChild(liElement);
+    }
+  }
 }
 
 // console.log(productsNames);
 
-// create chart
-function viewChart() {
-  let ctx = document.getElementById("myChart");
-  let myChart = new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: productsNames,
-      datasets: [
-        {
-          label: "# of product Votes",
-          data: productVotes,
-          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-          borderColor: ["rgba(255, 99, 132, 1)"],
-          borderWidth: 1,
-        },
-        {
-          label: "# of product shown",
-          data: productsShown,
+///////////12 (prevent users from seeing the same image in two subsequent iterations)
 
-          backgroundColor: "purple",
-          borderColor: "purple",
+let imagesArray = ["left-image", "center-image", "right-image"];
+
+let shownImages = [];
+
+function displayImage() {
+  let num = Math.floor(Math.random() * imagesArray.length);
+  document.productsName.src = imagesArray[num];
+
+  shownImages.unshift(imagesArray.splice(num, num + 1));
+
+  if (images.length == 0) {
+    images.Array = shownImages;
+    shownImages = [];
+
+    return shownImages[0];
+    // }
+    // viewChart();
+
+    //create chart
+    function viewChart() {
+      let ctx = document.getElementById("myChart");
+      let myChart = new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: productsNames,
+          datasets: [
+            {
+              label: "# of product Votes",
+              data: productVotes,
+              backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+              borderColor: ["rgba(255, 99, 132, 1)"],
+              borderWidth: 1,
+            },
+            {
+              label: "# of product shown",
+              data: productsShown,
+
+              backgroundColor: "purple",
+              borderColor: "purple",
+            },
+          ],
         },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
         },
-      },
-    },
-  });
+      });
+    }
+
+    console.log("names", productsNames);
+    console.log("votes", productVotes);
+    console.log("shown", productsShown);
+  }
+  ///////////////11
+  //   window.onload = selectImg;
+
+  // var theImg = new Array('left-image','center-image','right-image');
+
+  // function selectImg() {
+  //      var randomNum = Math.floor(Math.random() * selectImg.length);
+
+  //     document.getElementById("theImg").src = theImg[randomNum];
+
+  //   var theImg = new Array('left-image','center-image','right-image');
 }
-
-// console.log("names", productsNames);
-// console.log("votes", productVotes);
-// console.log("shown", productsShown);
