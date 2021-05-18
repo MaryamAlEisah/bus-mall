@@ -38,3 +38,18 @@ The bar charts should only appear after all voting data has been collected.
 ### Resources:
 
 I used the chart.js as an open source library and I modified to meet the output of my code.
+
+## Lab 13: BusMall Data Persistence
+
+### Problem Domain :
+The full BusMall problem domain can be found HERE
+
+### Instructions :
+
+Below are your lab requirements in a user story format. Try and think up what the feature tasks would be for each story, once you are done, or you get stuck, review the provided feature tasks to see what the actual tasks are for each story.
+
+As a user, I would like my data to persistently track totals between page refreshes, so that I can keep track of the aggregate number of votes.
+
+Implement local storage into your current application
+Make sure the data persists across both browser refreshes and resets
+Hints:
