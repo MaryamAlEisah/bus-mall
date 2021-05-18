@@ -18,11 +18,11 @@ The marketing team is not only interested in the total number of clicks, but als
 
 You are also responsible for the look and feel of the app, so don’t forget a custom font, color palette, layout with semantic HTML, and so on.
 
-# Lab-12:
+# Adding Chart:
 
 The full BusMall problem domain can be found HERE
 
-## Instructions:
+### Instructions:
 
 Below are your lab requirements in a user story format. Try and think up what the feature tasks would be for each story, once you are done, or you get stuck, review the provided feature tasks to see what the actual tasks are for each story.
 
@@ -34,3 +34,7 @@ As a marketing manager, I would like a visual representation of how many times a
 Using ChartJS (imported from CDN), display the vote totals and the number of times a product was viewed in a bar chart format. (hint: don’t forget about the <canvas> tags)
 Place the bar chart in the section located beneath your three product images
 The bar charts should only appear after all voting data has been collected.
+
+### Resources:
+
+I used the chart.js as an open source library and I modified to meet the output of my code.

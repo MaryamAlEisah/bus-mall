@@ -16,6 +16,15 @@ let userAttemptsCounter = 0;
 // global array for the objects
 let allProducts = [];
 
+//products names global array
+let productsNames = [];
+
+// votes global array
+let productVotes = [];
+
+// shown product array
+let productsShown = [];
+
 // constructor function
 function ProductImage(name, source, time) {
   this.name = name;
@@ -24,9 +33,14 @@ function ProductImage(name, source, time) {
 
   // votes
   this.votes = 0;
+
+  // views
+  this.shown = 0;
   allProducts.push(this);
+  productsNames.push(this.name);
 }
-let product1 = new ProductImage("bag", "image/bag.jpg");
+
+new ProductImage("bag", "image/bag.jpg");
 new ProductImage("banana", "image/banana.jpg");
 new ProductImage("bathroom", "image/bathroom.jpg");
 new ProductImage("boots", "image/boots.jpg");
@@ -83,6 +97,10 @@ function renderThreeImages() {
   leftImageElement.time = allProducts[leftImageIndex].time;
   centerImageElement.time = allProducts[centerImageIndex].time;
   rightImageElement.time = allProducts[rightImageIndex].time;
+
+  allProducts[leftImageIndex].shown++;
+  allProducts[centerImageIndex].shown++;
+  allProducts[rightImageIndex].shown++;
 }
 
 renderThreeImages();
@@ -117,22 +135,67 @@ function handleUserClick(event) {
     leftImageElement.removeEventListener("click", handleUserClick);
     centerImageElement.removeEventListener("click", handleUserClick);
     rightImageElement.removeEventListener("click", handleUserClick);
+
+    for (let i = 0; i < allProducts.length; i++) {
+      productsNames.push(allProducts[i].votes);
+      productsShown.push(allProducts[i].shown);
+    }
+    viewChart();
   }
 
   let Button = document.getElementById("results");
 
-  Button.addEventListener("click", displayResults);
-  function displayResults() {
-    let liElement;
-    let ulElement;
-    ulElement = document.createElement("ul");
+  // Button.addEventListener("click", displayResults);
+  // function displayResults() {
+  //     let liElement;
+  //     let ulElement;
+  //     ulElement = document.createElement("ul");
 
-    for (let i = 0; i < allProducts.length; i++) {
-      liElement = document.createElement("li");
-      liElement.appendChild(ulElement);
-      liElement.textContent = `${allProducts[i].name} has ${allProducts[i].votes} votes, 
-                            and watched at ${allProducts[i].time} `;
-    }
-  }
+  //     for (let i = 0; i < allProducts.length; i++) {
+  //     liElement = document.createElement("li");
+  //     liElement.appendChild(ulElement);
+  //     liElement.textContent = `${allProducts[i].name} has ${allProducts[i].votes} votes,
+  //                                     and watched at ${allProducts[i].time} `;
+  //     }
+  // }
 }
 
+// console.log(productsNames);
+
+// create chart
+function viewChart() {
+  let ctx = document.getElementById("myChart");
+  let myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: productsNames,
+      datasets: [
+        {
+          label: "# of product Votes",
+          data: productVotes,
+          backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+          borderColor: ["rgba(255, 99, 132, 1)"],
+          borderWidth: 1,
+        },
+        {
+          label: "# of product shown",
+          data: productsShown,
+
+          backgroundColor: "purple",
+          borderColor: "purple",
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+}
+
+// console.log("names", productsNames);
+// console.log("votes", productVotes);
+// console.log("shown", productsShown);
