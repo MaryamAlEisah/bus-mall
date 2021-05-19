@@ -1,4 +1,5 @@
 "use strict";
+
 // getting elements Globally
 let leftImageElement = document.getElementById("left-image");
 let centerImageElement = document.getElementById("center-image");
@@ -24,6 +25,31 @@ let productVotes = [];
 
 // shown product array
 let productsShown = [];
+
+//local storge
+// function for setting items
+
+function settingItem() {
+  let data = JSON.stringify(allProducts);
+  // saving to local storage
+
+  // console.log('data',itemData);
+  localStorage.setItem("item", data);
+}
+
+// getting the items by convert it to string
+
+function newObj() {
+  let strObj = localStorage.getItem("item");
+  console.log(strObject);
+
+  let normalObj = JSON.parse(strObject);
+  console.log(normalObj);
+
+  if (normalObj !== null) {
+    item = normalObj;
+  }
+}
 
 // constructor function
 function ProductImage(name, source, time) {
@@ -107,9 +133,11 @@ renderThreeImages();
 
 // create Event
 
-leftImageElement.addEventListener("click", handleUserClick);
-centerImageElement.addEventListener("click", handleUserClick);
-rightImageElement.addEventListener("click", handleUserClick);
+// leftImageElement.addEventListener("click", handleUserClick);
+// centerImageElement.addEventListener("click", handleUserClick);
+// rightImageElement.addEventListener("click", handleUserClick);
+
+img.addEventListener("click", handleUserClick);
 
 function handleUserClick(event) {
   // console.log(event.target.id);
@@ -132,10 +160,11 @@ function handleUserClick(event) {
     // console.log(allProducts);
     renderThreeImages();
   } else {
-    leftImageElement.removeEventListener("click", handleUserClick);
-    centerImageElement.removeEventListener("click", handleUserClick);
-    rightImageElement.removeEventListener("click", handleUserClick);
+    // leftImageElement.removeEventListener("click", handleUserClick);
+    // centerImageElement.removeEventListener("click", handleUserClick);
+    // rightImageElement.removeEventListener("click", handleUserClick);
 
+    img.removeEventListener("click", handleUserClick);
     for (let i = 0; i < allProducts.length; i++) {
       productsNames.push(allProducts[i].votes);
       productsShown.push(allProducts[i].shown);
@@ -180,56 +209,56 @@ function displayImage() {
     shownImages = [];
 
     return shownImages[0];
-    // }
-    // viewChart();
-
-    //create chart
-    function viewChart() {
-      let ctx = document.getElementById("myChart");
-      let myChart = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: productsNames,
-          datasets: [
-            {
-              label: "# of product Votes",
-              data: productVotes,
-              backgroundColor: ["rgba(255, 99, 132, 0.2)"],
-              borderColor: ["rgba(255, 99, 132, 1)"],
-              borderWidth: 1,
-            },
-            {
-              label: "# of product shown",
-              data: productsShown,
-
-              backgroundColor: "purple",
-              borderColor: "purple",
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-            },
-          },
-        },
-      });
-    }
-
-    console.log("names", productsNames);
-    console.log("votes", productVotes);
-    console.log("shown", productsShown);
   }
-  ///////////////11
-  //   window.onload = selectImg;
+  viewChart();
 
-  // var theImg = new Array('left-image','center-image','right-image');
+  //create chart
+  function viewChart() {
+    let ctx = document.getElementById("myChart");
+    let myChart = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: productsNames,
+        datasets: [
+          {
+            label: "# of product Votes",
+            data: productVotes,
+            backgroundColor: ["rgba(255, 99, 132, 0.2)"],
+            borderColor: ["rgba(255, 99, 132, 1)"],
+            borderWidth: 1
+          },
+          {
+            label: "# of product shown",
+            data: productsShown,
 
-  // function selectImg() {
-  //      var randomNum = Math.floor(Math.random() * selectImg.length);
+            backgroundColor: "purple",
+            borderColor: "purple"
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  }
 
-  //     document.getElementById("theImg").src = theImg[randomNum];
-
-  //   var theImg = new Array('left-image','center-image','right-image');
+  console.log("names", productsNames);
+  console.log("votes", productVotes);
+  console.log("shown", productsShown);
 }
+///////////////11
+//   window.onload = selectImg;
+
+// var theImg = new Array('left-image','center-image','right-image');
+
+// function selectImg() {
+//      var randomNum = Math.floor(Math.random() * selectImg.length);
+
+//     document.getElementById("theImg").src = theImg[randomNum];
+
+//   var theImg = new Array('left-image','center-image','right-image');
+// }
