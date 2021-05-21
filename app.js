@@ -136,32 +136,45 @@ let container = document.getElementById("img");
 
 container.addEventListener("click", handleUserClick);
 
+let userValue = Number(prompt("how many times would like to click"));
+if (userValue !== "") {
+  maxAttempts = userValue;
+  alert(`you have ${maxAttempts}`);
+} else {
+  alert(`you have ${maxAttempts}`);
+}
+
 function handleUserClick(event) {
   userAttemptsCounter++;
 
   //   console.log(userAttemptsCounter);
-
-  if (userAttemptsCounter <= maxAttempts) {
-    // console.log(userAttemptsCounter);
-    if (event.target.id === "left-image") {
-      allProducts[leftImageIndex].votes = allProducts[leftImageIndex].votes + 1;
-    } else if (event.target.id === "center-image") {
-      allProducts[centerImageIndex].votes =
-        allProducts[centerImageIndex].votes + 1;
-    } else {
-      allProducts[rightImageIndex].votes =
-        allProducts[rightImageIndex].votes + 1;
-    }
-    // console.log(allProducts);
-    renderThreeImages();
+  if (userAttemptsCounter == maxAttempts) {
+    alert(` you have clicked ${maxAttempts} , no more clicks `);
   } else {
-    container.removeEventListener("click", handleUserClick);
-    // for (let i = 0; i < allProducts.length; i++) {
-    //   productsNames.push(allProducts[i].votes);
-    //   productsShown.push(allProducts[i].shown);
-    // }
+    if (userAttemptsCounter <= maxAttempts) {
+      // console.log(userAttemptsCounter);
+
+      if (event.target.id === "left-image") {
+        allProducts[leftImageIndex].votes =
+          allProducts[leftImageIndex].votes + 1;
+      } else if (event.target.id === "center-image") {
+        allProducts[centerImageIndex].votes =
+          allProducts[centerImageIndex].votes + 1;
+      } else {
+        allProducts[rightImageIndex].votes =
+          allProducts[rightImageIndex].votes + 1;
+      }
+      // console.log(allProducts);
+      renderThreeImages();
+    } else {
+      // container.removeEventListener("click", handleUserClick);
+      // for (let i = 0; i < allProducts.length; i++) {
+      //   productsNames.push(allProducts[i].votes);
+      //   productsShown.push(allProducts[i].shown);
+      // }
+    }
+    Button.addEventListener("click", displayResults);
   }
-  Button.addEventListener("click", displayResults);
 }
 let Button = document.getElementById("results");
 let resultDiv = document.getElementById("results2");
@@ -172,10 +185,10 @@ function displayResults() {
   ulElement = document.createElement("ul");
   resultDiv.appendChild(ulElement);
   for (let i = 0; i < allProducts.length; i++) {
-    // let liElement = document.createElement("li");
-    // ulElement.appendChild(liElement);
-    // liElement.textContent = `${allProducts[i].name} has ${allProducts[i].votes} votes,
-    //                                           and watched at ${allProducts[i].shown} `;
+    let liElement = document.createElement("li");
+    ulElement.appendChild(liElement);
+    liElement.textContent = `${allProducts[i].name} has ${allProducts[i].votes} votes,
+                                                and watched at ${allProducts[i].shown} `;
     productVotes.push(allProducts[i].votes);
     productsShown.push(allProducts[i].shown);
     // console.log(ulElement);
