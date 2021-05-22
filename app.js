@@ -28,26 +28,27 @@ let productsShown = [];
 //local storge
 // function for setting items
 
-// function settingItem() {
-//   let data = JSON.stringify(allProducts);
-//   // saving to local storage
+function settingItem() {
+  let data = JSON.stringify(allProducts);
+  // saving to local storage
 
-//   // console.log('data',itemData);
-//   localStorage.setItem("item", data);
-// }
+  // console.log('data',itemData);
+  localStorage.setItem("item", data);
+}
 
 // getting the items by convert it to string
 
-// function newObj() {
-//   let strObj = localStorage.getItem("item");
-//   console.log(strObject);
-//   let normalObj = JSON.parse(strObject);
-//   console.log(normalObj);
+function newObj() {
+  let strObj = localStorage.getItem("item");
+  console.log(strObj);
 
-//   if (normalObj !== null) {
-//     item = normalObj;
-//   }
-// }
+  // console.log(normalObj);
+
+  if (strObj) {
+    // item = normalObj;
+    allProducts = JSON.parse(strObj);
+  }
+}
 
 // constructor function
 function ProductImage(name, source) {
@@ -64,6 +65,8 @@ function ProductImage(name, source) {
   allProducts.push(this);
   productsNames.push(this.name);
 }
+
+newObj();
 
 new ProductImage("bag", "image/bag.jpg");
 new ProductImage("banana", "image/banana.jpg");
@@ -94,7 +97,6 @@ function generateRandomIndex() {
 // global array for not dublicated img in 2 iteration
 let oldImages = [];
 
-oldImages = [leftImageIndex, centerImageIndex, rightImageIndex];
 
 // render product images
 function renderThreeImages() {
@@ -116,7 +118,9 @@ function renderThreeImages() {
     oldImages.includes(rightImageIndex)
   );
 
-  oldImages = [leftImageIndex, centerImageIndex, rightImageIndex];
+  // oldImages = [leftImageIndex, centerImageIndex, rightImageIndex];
+  oldImages = [];
+  oldImages.push(leftImageIndex, rightImageIndex, centerImageIndex);
 
   // give it src , time attributes
   leftImageElement.src = allProducts[leftImageIndex].source;
@@ -136,12 +140,14 @@ let container = document.getElementById("img");
 
 container.addEventListener("click", handleUserClick);
 
-let userValue = Number(prompt("how many times would like to click"));
+let userValue = Number(
+  prompt("Please enter the number of rounds to choose the best products")
+);
 if (userValue !== "") {
   maxAttempts = userValue;
-  alert(`you have ${maxAttempts}`);
+  alert(`You have ${maxAttempts} attempts`);
 } else {
-  alert(`you have ${maxAttempts}`);
+  alert(`You have ${maxAttempts} attempts`);
 }
 
 function handleUserClick(event) {
@@ -149,7 +155,7 @@ function handleUserClick(event) {
 
   //   console.log(userAttemptsCounter);
   if (userAttemptsCounter == maxAttempts) {
-    alert(` you have clicked ${maxAttempts} , no more clicks `);
+    alert(` You have chosen ${maxAttempts} , no more attempts `);
   } else {
     if (userAttemptsCounter <= maxAttempts) {
       // console.log(userAttemptsCounter);
@@ -175,6 +181,7 @@ function handleUserClick(event) {
     }
     Button.addEventListener("click", displayResults);
   }
+  settingItem();
 }
 let Button = document.getElementById("results");
 let resultDiv = document.getElementById("results2");
